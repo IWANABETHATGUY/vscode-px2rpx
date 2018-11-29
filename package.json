@@ -3,7 +3,8 @@
   "displayName": "px2rpx",
   "description": "",
   "publisher": "IWANABETHATGUY",
-  "version": "0.0.1",
+  "version": "0.0.3",
+  "icon": "logo.png",
   "repository": {
     "type": "github",
     "url": "https://github.com/IWANABETHATGUY/vscode-rpx2px"
