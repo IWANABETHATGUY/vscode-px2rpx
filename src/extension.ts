@@ -10,8 +10,11 @@ import {
   TextDocument,
   Range,
   Position,
+  TextEditorEdit,
 } from 'vscode';
 import * as postcss from 'postcss';
+import * as lessSyntax from 'postcss-less';
+import lessConvert from './cnovert';
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: ExtensionContext) {
@@ -20,7 +23,7 @@ export function activate(context: ExtensionContext) {
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with  registerCommand
   // The commandId parameter must match the command field in package.json
-  let disposable = commands.registerCommand('extension.sayHello', () => {
+  let disposable = commands.registerCommand('px2rpx', () => {
     // The code you place here will be executed every time your command is executed
 
     // Display a message box to the user
@@ -35,8 +38,8 @@ export function activate(context: ExtensionContext) {
   context.subscriptions.push(disposable);
 }
 
-function Update(e: TextEditor, doc: TextDocument, sel: Selection) {
-  e.edit(function(edit) {
+async function Update(e: TextEditor, doc: TextDocument, sel: Selection) {
+  await e.edit(async function(builder: TextEditorEdit) {
     // itterate through the selections and convert all text to Lower
     // let txt: string = d.getText(new Range(sel.start, sel.end));
     let content: string = doc.getText();
@@ -55,20 +58,12 @@ function Update(e: TextEditor, doc: TextDocument, sel: Selection) {
     let endPos = new Position(styleEndLine - 1, lines[styleEndLine - 1].length);
     let styleContent = doc.getText(new Range(startPos, endPos));
 
-    let ast = postcss.parse(styleContent);
-    walk(ast);
-    edit.replace(new Range(startPos, endPos), ast.toString());
+    let lazyResult = postcss([lessConvert({})]).process(styleContent, {
+      syntax: lessSyntax,
+    });
+    builder.replace(new Range(startPos, endPos), lazyResult.content);
   });
 }
 
-function walk(root: postcss.Root): void {
-  root.walkRules(rule => {
-    // Transform each rule here
-    rule.walkDecls(decl => {
-      // Transform each property declaration here
-      decl.value = decl.value.replace(/(\d+)px/, '$1rpx');
-    });
-  });
-}
 // this method is called when your extension is deactivated
 export function deactivate() {}
