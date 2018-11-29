@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// 'use strict';
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 const vscode_1 = require("vscode");
@@ -17,25 +18,25 @@ const cnovert_1 = require("./cnovert");
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 function activate(context) {
-    // Use the console to output diagnostic information (console.log) and errors (console.error)
-    // This line of code will only be executed once when your extension is activated
-    // The command has been defined in the package.json file
-    // Now provide the implementation of the command with  registerCommand
-    // The commandId parameter must match the command field in package.json
-    let disposable = vscode_1.commands.registerCommand('extension.px2rpx', () => {
-        // The code you place here will be executed every time your command is executed
-        // Display a message box to the user
+    let px2rpxCommand = vscode_1.commands.registerCommand('extension.px2rpx', () => {
         let activeEditor = vscode_1.window.activeTextEditor;
         if (!activeEditor) {
             return;
         }
-        let selection = activeEditor.selection;
-        Update(activeEditor, activeEditor.document, selection);
+        Update(activeEditor, activeEditor.document, 'px2rpx');
     });
-    context.subscriptions.push(disposable);
+    let rpx2pxCommand = vscode_1.commands.registerCommand('extension.rpx2px', () => {
+        let activeEditor = vscode_1.window.activeTextEditor;
+        if (!activeEditor) {
+            return;
+        }
+        Update(activeEditor, activeEditor.document, 'rpx2px');
+    });
+    context.subscriptions.push(px2rpxCommand);
+    context.subscriptions.push(rpx2pxCommand);
 }
 exports.activate = activate;
-function Update(e, doc, sel) {
+function Update(e, doc, transType) {
     return __awaiter(this, void 0, void 0, function* () {
         yield e.edit(function (builder) {
             return __awaiter(this, void 0, void 0, function* () {
@@ -57,7 +58,11 @@ function Update(e, doc, sel) {
                 let startPos = new vscode_1.Position(styleStartLine + 1, 0);
                 let endPos = new vscode_1.Position(styleEndLine - 1, lines[styleEndLine - 1].length);
                 let styleContent = doc.getText(new vscode_1.Range(startPos, endPos));
-                let lazyResult = postcss([cnovert_1.default({})]).process(styleContent, {
+                let lazyResult = postcss([
+                    cnovert_1.default({
+                        type: transType,
+                    }),
+                ]).process(styleContent, {
                     syntax: lessSyntax,
                 });
                 builder.replace(new vscode_1.Range(startPos, endPos), lazyResult.content);

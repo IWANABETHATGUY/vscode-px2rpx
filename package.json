@@ -15,14 +15,19 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extension.px2rpx"
+    "onCommand:extension.px2rpx",
+    "onCommand:extension.rpx2px"
   ],
   "main": "./out/extension",
   "contributes": {
     "commands": [
       {
         "command": "extension.px2rpx",
-        "title": "px2rpx"
+        "title": "px2rpx: 将style中的px转化为rpx"
+      },
+      {
+        "command": "extension.rpx2px",
+        "title": "rpx2px：将style中的rpx转化为px"
       }
     ]
   },
