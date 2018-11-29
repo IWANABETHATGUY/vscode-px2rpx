@@ -1,8 +1,13 @@
 {
-  "name": "hello-world",
-  "displayName": "hello-world",
+  "name": "px2rpx",
+  "displayName": "px2rpx",
   "description": "",
+  "publisher": "IWANABETHATGUY",
   "version": "0.0.1",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/IWANABETHATGUY/vscode-rpx2px"
+  },
   "engines": {
     "vscode": "^1.29.0"
   },
@@ -10,23 +15,22 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extension.sayHello"
+    "onCommand:extension.px2rpx"
   ],
   "main": "./out/extension",
   "contributes": {
     "commands": [
       {
-        "command": "extension.sayHello",
-        "title": "Hello World"
+        "command": "extension.px2rpx",
+        "title": "px2rpx"
       }
     ]
   },
   "scripts": {
-    "vscode:prepublish": "yarn run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "yarn run compile && node ./node_modules/vscode/bin/test"
+    "test": "node ./node_modules/vscode/bin/test"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.42",
