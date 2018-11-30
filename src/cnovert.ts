@@ -30,6 +30,14 @@ export default postcss.plugin(
           }
         });
       });
+      root.walkDecls(decl => {
+        decl.value = decl.value.replace(regExp, `$1${after}`);
+      });
+      root.walkAtRules(function(atrule: ExtAtRule): any {
+        if (atrule.variable === true && atrule.value) {
+          atrule.value = atrule.value.replace(regExp, `$1${after}`);
+        }
+      });
     };
   },
 );

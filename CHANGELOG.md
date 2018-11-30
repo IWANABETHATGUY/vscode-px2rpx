@@ -13,4 +13,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
   - 添加将.wpy 中的 style 标签中的 rpx 转化成为 px 的功能
 
 - 0.0.3
+
   - 添加 icon
+
+- 0.1.0
+  - 添加转换选中片段功能

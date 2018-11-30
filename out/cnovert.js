@@ -20,6 +20,14 @@ exports.default = postcss.plugin('less-syntax', (option = { type: 'px2rpx' }) =>
                 }
             });
         });
+        root.walkDecls(decl => {
+            decl.value = decl.value.replace(regExp, `$1${after}`);
+        });
+        root.walkAtRules(function (atrule) {
+            if (atrule.variable === true && atrule.value) {
+                atrule.value = atrule.value.replace(regExp, `$1${after}`);
+            }
+        });
     };
 });
 //# sourceMappingURL=cnovert.js.map
