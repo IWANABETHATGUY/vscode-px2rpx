@@ -6,8 +6,8 @@
 
 ## 使用方法
 
-`shift+(cmd|ctrl)`显示所有命令， 输入 `rpx2px` 将  自动寻找 style 标签中的  所有声明  并转换
-![px2rpx](https://github.com/IWANABETHATGUY/vscode-px2rpx/introduction/rpx2rpx.gif)
+`shift+(cmd|ctrl)`显示所有命令， 输入 `rpx2px` 将  自动寻找 style 标签中的所有声明并转换
+![px2rpx](https://github.com/IWANABETHATGUY/vscode-px2rpx/blob/master/introduction/rpx2px.gif)
 
- 如果  只想  转换部分， 可选中需要转换的样式代码，输入`px2rpx`即可
-![select-px2rpx](https://github.com/IWANABETHATGUY/vscode-px2rpx/introduction/select-px2rpx.gif)
+如果只想转换部分,可选中需要转换的样式代码，输入`px2rpx`即可
+![select-px2rpx](https://github.com/IWANABETHATGUY/vscode-px2rpx/blob/master/introduction/select-px2rpx.gif)
